@@ -1,0 +1,55 @@
+# Archivos de entorno y configuración
+.env
+.env.*
+*.pyc
+
+# Dependencias y entornos virtuales
+venv/
+env/
+env.bak/
+env/
+.pip
+pip-log.txt
+
+# Archivos de registro y salida
+*.log
+*.out
+
+# Carpetas generadas por herramientas de construcción y pruebas
+build/
+dist/
+__pycache__/
+htmlcov/
+.coverage
+.tox/
+
+# Archivos de caché
+*.swp
+*.swo
+*.py[cod]
+*.bak
+
+# Archivos de IDE y editores de texto
+.vscode/
+.idea/
+*.sublime-*
+*.pydevproject
+
+# Archivos de configuración de herramientas
+.editorconfig
+.eslintcache
+.flake8
+.pytest_cache/
+
+# Archivos generados por Django
+*.sqlite3
+*.pyc
+__pycache__/
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.cached/
+
+# Otros archivos y carpetas generados
+.DS_Store
+Thumbs.db
