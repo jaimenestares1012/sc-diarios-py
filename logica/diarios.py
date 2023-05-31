@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 from bd.mongo import insertarMongo, buscarMongo, deletearMongo
-
+from utils.functions import urlnoticia
 class Principal():
     def __init__(self, url):
         self.url = url
@@ -99,6 +99,7 @@ class Principal():
                     texto_limpio = ''.join(parrafo.findAll(text=True))
                     # Agregar el párrafo limpio a la lista parrafos_limpios
                     print("<------------->")
+                    urlComplete = urlnoticia(visita, texto_limpio.strip())
                     json = {
                         'titulo': titulo.text.strip(),
                         'subtitulo': subtitulo.text.strip(),
@@ -106,7 +107,6 @@ class Principal():
                         'datetime_str': datetime_str,
                         'parrafos_limpios': texto_limpio.strip()
                     }
-                    print("json", json)
                     json_limpio = {
                         'source_place': '2dfa9ecb0179a4e4',
                         'sample_lang': 'es',
@@ -114,7 +114,7 @@ class Principal():
                         'source_snetwork_id': 'nws',
                         'sample_created_at': json['datetime_str'],
                         'sample_text': json['parrafos_limpios'].strip(),
-                        'sample_link': '',
+                        'sample_link': urlComplete,
                         'author_id': '',
                         'author_fullname': 'La Republica',
                         'author_photo': '',
