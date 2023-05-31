@@ -2,10 +2,10 @@ from pymongo import MongoClient
 import os
 
 
-client = MongoClient('mongodb://10.3.3.122:27017')
+client = MongoClient('mongodb://localhost:27017')
 # client = MongoClient("mongodb+srv://user_jaime:XhA7pqTDWKfQy6Nh@micluster.pns9q58.mongodb.net")
 
-db  = client.get_database("jaime")
+db  = client.get_database("pruebadiarios")
 
 def insertarMongo(valor, coleccion):
     col = db[coleccion]

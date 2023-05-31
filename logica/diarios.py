@@ -23,7 +23,7 @@ class Principal():
         options.add_argument(f'user-agent={user_agent}')
 
         try:
-            self.driver = webdriver.Remote(command_executor='http://192.168.44.216:4444/wd/hub', desired_capabilities=options.to_capabilities())
+            self.driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', desired_capabilities=options.to_capabilities())
             self.wait = WebDriverWait(self.driver, 10)
         except:
             pass
@@ -108,15 +108,34 @@ class Principal():
                     }
                     print("json", json)
                     json_limpio = {
-                        'titulo': json['titulo'].replace('\\"', '"').replace("\\'", "'"),
-                        'subtitulo': json['subtitulo'].replace('\\"', '"').replace("\\'", "'"),
-                        'contexto': json['contexto'].replace('\\"', '"').replace("\\'", "'"),
-                        'datetime_str': json['datetime_str'],
-                        'parrafos_limpios': json['parrafos_limpios'].strip()
+                        'source_place': '2dfa9ecb0179a4e4',
+                        'sample_lang': 'es',
+                        'sample_app': 'web',
+                        'source_snetwork_id': 'nws',
+                        'sample_created_at': json['datetime_str'],
+                        'sample_text': json['parrafos_limpios'].strip(),
+                        'sample_link': '',
+                        'author_id': '',
+                        'author_fullname': 'La Republica',
+                        'author_photo': '',
+                        'author_screen_name': 'larepublica.pe',
+                        'sample_post_author_id': '',
+                        'sample_post_author': 'La Republica', 
+                        'sample_post_author_photo': '',
+                        'sample_post_id': '', 
+                        'sample_post_text': json['titulo'].replace('\\"', '"').replace("\\'", "'") + json['contexto'].replace('\\"', '"').replace("\\'", "'"), 
+                        'sample_post_created_at': 1684411320000,
+                        'sample_post_image': '',
+                        'sample_post_link': ''
+                                            
+                        # 'titulo': ,
+                        # 'subtitulo': json['subtitulo'].replace('\\"', '"').replace("\\'", "'"),
+                        # 'contexto': json['contexto'].replace('\\"', '"').replace("\\'", "'"),
+                        # 'datetime_str': json['datetime_str'],
                     }
 
                     print(json_limpio)
-                    insertarMongo(json_limpio, "sunedu2")
+                    insertarMongo(json_limpio, "politica")
 
                 # Imprimir el arreglo de párrafos limpios
 
