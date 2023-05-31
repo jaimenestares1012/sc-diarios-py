@@ -12,7 +12,7 @@ def index():
 
 @app.route('/sc-diarios')
 def diarios():
-    url = 'https://peru21.pe/archivo/politica/'
+    url = 'https://larepublica.pe/politica'
     process= Principal(url)
     process.logica()
     return {'codRes':'00',
