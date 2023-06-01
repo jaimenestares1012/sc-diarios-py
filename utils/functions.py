@@ -1,10 +1,15 @@
-def urlnoticia(base, url):
-    print("<------------------------------------------------>")
+import hashlib
 
-    # "sample_text": "El ministro de Relaciones Exteriores de Chile, Alberto van Klaveren, ya había expresado a inicios de mes su respaldo a la postura del gobierno peruano de asumir la presidencia pro tempore de la Alianza del Pacífico (AP). Ayer, el canciller del país sureño reiteró el aval de su país y se ofreció para lograr un acuerdo que venza la resistencia del mandatario mexicano Andrés Manuel López Obrador (AMLO) a entregarle el cargo a su homóloga peruana Dina Boluarte.",
-	# "sample_link": "https://peru21.pe/politica/#:~:text=El%20ministro%20de,Boluarte.",  // url del texto del la noticia (%20 es un espacio)
+def urlnoticia(base, parrafo):
+    palabras = parrafo.split()
+    primera_palabra = palabras[0]
+    segunda_palabra = palabras[1]
+    ultima_palabra = palabras[-1]
+    resultado = base + '#:~:text=' + primera_palabra + '%20' + segunda_palabra + ',' + ultima_palabra
+    return resultado
 
-    # https://peru21.pe/politica/chile-apoya-a-peru-ante-ataques-de-andres-manuel-lopez-obrador-y-gustavo-petro-noticia/#:~:text=“Hemos%20apoyado%20el,reconoció.
-    resultado = base + url + ''
-    
-    return url
+
+def hashear(urlParrafo):
+    hash_md5 = hashlib.md5()
+    hash_md5.update(urlParrafo.encode('utf-8'))
+    return hash_md5.hexdigest()

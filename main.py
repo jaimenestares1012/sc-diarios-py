@@ -1,5 +1,4 @@
-from flask import Flask
-
+from flask import Flask, request
 app = Flask(__name__)
 
 
@@ -7,13 +6,15 @@ from logica.diarios import Principal
 
 @app.route('/')
 def index():
-    return {'codRes':'00',
-            'message': 'sc-diarios-py'}
+    return {'message': 'sc-diarios-py'}
 
-@app.route('/sc-diarios')
+@app.route('/sc-diarios', methods=['POST'])
 def diarios():
-    url = 'https://larepublica.pe/politica'
-    process= Principal(url)
+    json = request.get_json()
+    url = json['url']
+    fecha_scraping = json['fecha_scraping']
+    
+    process= Principal(url, fecha_scraping)
     process.logica()
     return {'codRes':'00',
             'message': 'sc-diarios-py'}
