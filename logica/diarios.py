@@ -15,6 +15,8 @@ class Principal():
         self.url = url
         self.fecha_scraping = fecha_scraping
         
+       
+        
         # Crear instancia de UserAgent
         ua = UserAgent()
 
@@ -35,6 +37,10 @@ class Principal():
 
     def logica(self):
         self.driver.get(self.url)
+        # https://larepublica.pe/politica
+        print("LOGICA")
+        coleccion = self.url.split('/')[3]
+        print("coleccion", coleccion)
         self.driver.maximize_window()
         # container = self.driver.find_element(By.CLASS_NAME , 'paginated-list--infinite')
         noticias = self.driver.find_elements(By.CLASS_NAME , 'ListSection_list__section--item__zeP_z')
@@ -44,16 +50,20 @@ class Principal():
         # Convertir el string en un objeto datetime
         isend = False
         fecha_actual = datetime.strptime(self.fecha_scraping, "%Y-%m-%d").date()
+        print("fecha_actual", fecha_actual)
         arrayNoticias = []
         scroll_distance = 5000
         self.driver.execute_script(f"window.scrollBy(0, {scroll_distance});")
 
         for noticia in noticias:
             try:
+                time.sleep(2)
                 url = noticia.find_element(By.XPATH,  './div/h2/a').get_attribute('href')
                 url_img = noticia.find_element(By.XPATH,  './figure/img').get_attribute('src')
                 fecha_publicada = noticia.find_element(By.XPATH,  './div/div/time').text.split('|')[1].strip() 
                 fecha_publicada_obj = datetime.strptime(fecha_publicada, "%d/%m/%Y").date()
+                print("fecha_publicada_obj", fecha_publicada_obj)
+                print("fecha_actual", fecha_actual)
                 if fecha_publicada_obj == fecha_actual:
                     data = {
                         "url": url,
@@ -61,6 +71,7 @@ class Principal():
                     }
                     arrayNoticias.append(data)
                     isend = True
+                    print("DENTRO", data)
                 else:
                     print("Noticia fuera de fecha")
                     isend = False       
@@ -155,7 +166,7 @@ class Principal():
                     }
 
                     print(json_limpio)
-                    insertarMongo(json_limpio, "politica")
+                    insertarMongo(json_limpio, coleccion)
                 time.sleep(10)
             except Exception as e:
                 print("Error:", str(e))
@@ -175,3 +186,5 @@ class Principal():
         # titulo = self.driver.find_element(By.XPATH , '/html/body/div[1]/div/div[4]/div[2]/h1').text
         # print("titulo", titulo)
         return 0
+
+    
